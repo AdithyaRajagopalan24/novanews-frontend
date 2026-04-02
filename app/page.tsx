@@ -30,7 +30,6 @@ export default function Home() {
     }
   };
 
-  // Prevent hydration weirdness
   if (!isLoaded) {
     return null;
   }
