@@ -7,20 +7,29 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  
   const { userId } = await auth();
 
   return (
     <ClerkProvider>
       <html lang="en">
-        <body>
-          <nav className="p-4 flex justify-between border-b">
+        <body className="antialiased">
+          <nav className="p-4 flex justify-between items-center border-b bg-white">
             <h1 className="text-xl font-bold">NovaNews</h1>
 
-            {userId ? (
-              <UserButton />
-            ) : (
-              <SignInButton />
-            )}
+            <div className="flex items-center gap-4">
+              {userId ? (
+                
+                <UserButton />
+              ) : (
+                // User is logged out
+                <SignInButton mode="modal">
+                  <button className="bg-black text-white px-4 py-2 rounded-lg text-sm font-medium">
+                    Sign In
+                  </button>
+                </SignInButton>
+              )}
+            </div>
           </nav>
 
           {children}
@@ -29,3 +38,5 @@ export default async function RootLayout({
     </ClerkProvider>
   );
 }
+
+export const dynamic = "force-dynamic";
