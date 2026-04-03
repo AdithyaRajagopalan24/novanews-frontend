@@ -1,4 +1,5 @@
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
+// api.ts
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080";
 
 export async function runResearch(topic: string, userId: string) {
   const res = await fetch(`${API_URL}/api/research`, {
@@ -11,8 +12,8 @@ export async function runResearch(topic: string, userId: string) {
   });
 
   if (!res.ok) {
-    const text = await res.text();
-    throw new Error(text || "Failed to fetch research");
+    const errorText = await res.text();
+    throw new Error(errorText || "Failed to start research");
   }
 
   return res.json();
